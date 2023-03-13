@@ -1,11 +1,42 @@
 import React, { Component } from 'react';
 import '../../styles/search.scss';
 
-export default class SearchComponent extends Component {
+interface Props {
+  text?: string;
+}
+
+export default class SearchComponent extends Component<Props, { search: string }> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      search: '',
+    };
+  }
+
+  componentDidMount() {
+    const searchValue = !!localStorage.getItem('searchInput')
+      ? localStorage.getItem('searchInput')
+      : '';
+    this.setState({
+      search: searchValue!,
+    });
+  }
+
+  changeSearch = (value: string) => {
+    this.setState({ search: value });
+    localStorage.setItem('searchInput', value);
+  };
+
   render() {
     return (
       <div className="search__wrap">
-        <input className="search" type="text" placeholder="Search..." />
+        <input
+          className="search"
+          type="text"
+          placeholder="Search..."
+          value={this.state.search}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.changeSearch(e.target?.value)}
+        />
         <button className="search__btn">Search</button>
       </div>
     );
