@@ -1,0 +1,43 @@
+.cards {
+  width: 100%;
+  padding: 20px;
+}
+
+.search__wrap {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.search {
+  padding-left: 10px;
+  border-radius: 5px;
+  font-size: 22px;
+  color: #db0bb9;
+  width: 80%;
+  height: 100%;
+  border: 2px solid rgba($color: #db0bb9, $alpha: 0.5);
+  outline: none;
+
+  &:focus {
+    border: 2px solid rgba($color: #db0bb9, $alpha: 1);
+  }
+}
+
+.search__btn {
+  cursor: pointer;
+  flex-grow: 1;
+  height: 100%;
+  font-size: 22px;
+  color: #db0bb9;
+  border-radius: 5px;
+  border: 2px solid rgba($color: #db0bb9, $alpha: 0.5);
+  background: transparent;
+
+  &:hover {
+    border: 2px solid rgba($color: #db0bb9, $alpha: 1);
+
+  }
+}
