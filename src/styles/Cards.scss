@@ -28,6 +28,8 @@ $MAIN_COLOR: #db0bb9;
     border-radius: 5px;
     width: 310px;
     border: 2px solid rgba($color: $MAIN_COLOR, $alpha: 0.5);
+    display: flex;
+    flex-direction: column;
   }
 
   &__image {
@@ -43,10 +45,29 @@ $MAIN_COLOR: #db0bb9;
     display: flex;
     flex-direction: column;
     gap: 5px;
+    flex-grow: 1;
+  }
+
+  &__description {
+    overflow: auto;
+    height: 130px;
+  }
+
+  &__description::-webkit-scrollbar {
+    width: 3px;
+  }
+  &__description::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: rgba($color: $MAIN_COLOR, $alpha: 0.5);
   }
 
   &__name,
   &__likes {
     font-weight: 600;
+  }
+
+  &__likes {
+    align-self: flex-end;
+    justify-self: flex-end;
   }
 }
