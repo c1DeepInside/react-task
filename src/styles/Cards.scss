@@ -1,43 +1,52 @@
+$MAIN_COLOR: #db0bb9;
+
 .cards {
   width: 100%;
   padding: 20px;
+  color: $MAIN_COLOR;
 }
 
-.search__wrap {
-  width: 100%;
-  height: 50px;
+.cards__wrap {
+  margin-top: 20px;
+}
+
+.cards__hr {
+  margin-top: 5px;
+  background-color: rgba($color: $MAIN_COLOR, $alpha: 1);
+  height: 1px; border: 0;
+}
+
+.cards__field {
+  margin-top: 20px;
   display: flex;
-  align-items: center;
-  gap: 20px;
+  gap: 15px;
+  flex-wrap: wrap;
 }
 
-.search {
-  padding-left: 10px;
-  border-radius: 5px;
-  font-size: 22px;
-  color: #db0bb9;
-  width: 80%;
-  height: 100%;
-  border: 2px solid rgba($color: #db0bb9, $alpha: 0.5);
-  outline: none;
-
-  &:focus {
-    border: 2px solid rgba($color: #db0bb9, $alpha: 1);
+.card {
+  &__wrap {
+    border-radius: 5px;
+    width: 310px;
+    border: 2px solid rgba($color: $MAIN_COLOR, $alpha: 0.5);
   }
-}
 
-.search__btn {
-  cursor: pointer;
-  flex-grow: 1;
-  height: 100%;
-  font-size: 22px;
-  color: #db0bb9;
-  border-radius: 5px;
-  border: 2px solid rgba($color: #db0bb9, $alpha: 0.5);
-  background: transparent;
+  &__image {
+    width: 100%;
+    max-height: 172px;
+    object-fit: cover;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+  }
 
-  &:hover {
-    border: 2px solid rgba($color: #db0bb9, $alpha: 1);
+  &__info {
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
 
+  &__name,
+  &__likes {
+    font-weight: 600;
   }
 }
