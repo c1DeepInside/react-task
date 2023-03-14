@@ -13,6 +13,7 @@
   gap: 20px;
   font-size: 22px;
   font-weight: 600;
+  width: 100%;
 }
 
 .nav__btn {
@@ -30,4 +31,11 @@
 .active__btn {
   background-color: #db0bb9;
   color: white;
+}
+
+.current__page {
+  flex-grow: 1;
+  color: #db0bb9;
+  text-align: end;
+  padding: 5px;
 }
