@@ -9,22 +9,16 @@ export default class SearchComponent extends Component<Props, { search: string }
   constructor(props: Props) {
     super(props);
     this.state = {
-      search: '',
+      search: !!localStorage.getItem('searchInput') ? localStorage.getItem('searchInput')! : '',
     };
   }
 
-  componentDidMount() {
-    const searchValue = !!localStorage.getItem('searchInput')
-      ? localStorage.getItem('searchInput')
-      : '';
-    this.setState({
-      search: searchValue!,
-    });
+  componentWillUnmount(): void {
+    localStorage.setItem('searchInput', this.state.search);
   }
 
   changeSearch = (value: string) => {
     this.setState({ search: value });
-    localStorage.setItem('searchInput', value);
   };
 
   render() {
