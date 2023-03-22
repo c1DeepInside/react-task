@@ -32,7 +32,7 @@ export default class SearchComponent extends Component<Props, { search: string }
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.changeSearch(e.target?.value)}
           data-testid="search__input"
         />
-        <button className="search__btn">Search</button>
+        <button className="search__btn btn">Search</button>
       </div>
     );
   }

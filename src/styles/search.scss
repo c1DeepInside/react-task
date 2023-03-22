@@ -24,16 +24,7 @@ $MAIN_COLOR: #db0bb9;
 }
 
 .search__btn {
-  cursor: pointer;
   flex-grow: 1;
   height: 100%;
   font-size: 22px;
-  color: $MAIN_COLOR;
-  border-radius: 5px;
-  border: 2px solid rgba($color: $MAIN_COLOR, $alpha: 0.5);
-  background: transparent;
-
-  &:hover {
-    border: 2px solid rgba($color: $MAIN_COLOR, $alpha: 1);
-  }
 }
