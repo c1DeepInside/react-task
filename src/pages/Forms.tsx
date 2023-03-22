@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
+import CustomInput from '../components/forms/CustomInput';
+import CustomSelect from '../components/forms/CustomSelect';
+import GenderInput from '../components/forms/GenderInput';
+import { Field, GenderProps } from '../interfaces/forms';
 import '../styles/forms.scss';
 
-const genders = ['Male', 'Female', 'Other'];
 enum errorsName {
   name = 'name',
   date = 'date',
   gender = 'gender',
   agree = 'agree',
+  language = 'language',
+  file = 'file',
 }
 
 interface Props {
@@ -15,87 +20,99 @@ interface Props {
 
 interface State {
   errors: string[];
+  formFields: Field[];
+  genderProps: GenderProps[];
 }
 
 export class Forms extends Component<Props, State> {
-  private nickRef: React.RefObject<HTMLInputElement>;
+  private nameRef: React.RefObject<HTMLInputElement>;
   private dateRef: React.RefObject<HTMLInputElement>;
   private languageRef: React.RefObject<HTMLSelectElement>;
-  private genderRef: React.RefObject<HTMLInputElement>;
+  private maleGenderRef: React.RefObject<HTMLInputElement>;
+  private femaleGenderRef: React.RefObject<HTMLInputElement>;
+  private otherGenderRef: React.RefObject<HTMLInputElement>;
   private fileRef: React.RefObject<HTMLInputElement>;
   private agreeRef: React.RefObject<HTMLInputElement>;
 
   constructor(props: Props) {
     super(props);
-    this.nickRef = React.createRef();
+    this.nameRef = React.createRef();
     this.dateRef = React.createRef();
     this.languageRef = React.createRef();
-    this.genderRef = React.createRef();
+    this.maleGenderRef = React.createRef();
+    this.femaleGenderRef = React.createRef();
+    this.otherGenderRef = React.createRef();
     this.fileRef = React.createRef();
     this.agreeRef = React.createRef();
     this.state = {
       errors: [],
+      formFields: [
+        {
+          id: 1,
+          reference: this.nameRef,
+          type: 'text',
+          errorText: 'Please enter the nickname',
+          description: 'Nickname',
+        },
+        {
+          id: 2,
+          reference: this.dateRef,
+          type: 'date',
+          errorText: 'Please enter the correct date of yesterday',
+          description: 'What day was yesterday?',
+        },
+        {
+          id: 3,
+          reference: this.fileRef,
+          type: 'file',
+          errorText: 'Please select a picture',
+          description: 'Choose a picture for your avatar',
+          accept: '.png, .jpg, .jpeg',
+        },
+        {
+          id: 4,
+          reference: this.agreeRef,
+          type: 'checkbox',
+          errorText: 'To continue, you must agree to data processing',
+          description: 'I agree to the processing of personal data',
+        },
+      ],
+      genderProps: [
+        {
+          reference: this.maleGenderRef,
+          name: 'Male',
+        },
+        {
+          reference: this.femaleGenderRef,
+          name: 'Female',
+        },
+        {
+          reference: this.otherGenderRef,
+          name: 'Other',
+        },
+      ],
     };
   }
 
-  submitForm(e: React.MouseEvent<HTMLButtonElement>) {
+  submitForm = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-  }
+    console.log(this.nameRef.current?.value);
+    console.log(this.dateRef.current?.value);
+  };
 
   render() {
     return (
       <div className="forms">
         <form className="form">
-          <div className="input__wrap">
-            <label>Nickname*</label>
-            <input type="text" ref={this.nickRef} />
-          </div>
-          {this.state.errors.includes(errorsName.name) && (
-            <p className="error">Please enter a nickname</p>
-          )}
-          <div className="input__wrap">
-            <label>What day was yesterday?*</label>
-            <input type="date" ref={this.dateRef} />
-          </div>
-          {this.state.errors.includes(errorsName.date) && (
-            <p className="error">Please enter the correct date of yesterday</p>
-          )}
-          <div className="input__wrap">
-            <label>Favorite programming language</label>
-            <select ref={this.languageRef}>
-              <option value="JS">JS</option>
-              <option value="Pascal">Pascal</option>
-            </select>
-          </div>
-          <div className="genders__wrap">
-            <label>What&#39;s your gender?*</label>
-            <div className="input__wrap">
-              {genders.map((gender) => (
-                <div key={gender} className="gender__wrap">
-                  <input type="radio" name="gender" value={gender} />
-                  <label>{gender}</label>
-                </div>
-              ))}
-            </div>
-          </div>
-          {this.state.errors.includes(errorsName.gender) && (
-            <p className="error">Please enter a gender</p>
-          )}
-          <div className="input__wrap">
-            <label>Choose a picture for your avatar</label>
-            <input type="file" accept=".png, .jpg, .jpeg" ref={this.fileRef} />
-          </div>
-          <div className="input__wrap">
-            <input type="checkbox" ref={this.agreeRef} />
-            <label>I agree to the processing of personal data*</label>
-          </div>
-          {this.state.errors.includes(errorsName.agree) && (
-            <p className="error">To continue, you must agree to data processing</p>
-          )}
+          {this.state.formFields.map((field) => (
+            <CustomInput field={field} isError={false} key={field.id} />
+          ))}
+          <CustomSelect reference={this.languageRef} isError={false} />
+          <GenderInput genderProps={this.state.genderProps} isError={false} />
           <button className="btn submit__btn" onClick={this.submitForm}>
             Submit
           </button>
-          <p className="form_text">Fields with (*) are required</p>
+          <p className="form_text">All fields are required</p>
         </form>
         <hr className="hr" />
       </div>
