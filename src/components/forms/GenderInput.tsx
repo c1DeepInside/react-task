@@ -14,11 +14,17 @@ export class GenderInput extends Component<Props> {
     return (
       <div>
         <div className="genders__wrap">
-          <label>What&#39;s your gender?*</label>
+          <label>What&#39;s your gender?</label>
           <div className="input__wrap">
             {this.props.genderProps.map((gender) => (
               <div key={gender.name} className="gender__wrap">
-                <input type="radio" name="gender" value={gender.name} ref={gender.reference} />
+                <input
+                  className="input"
+                  type="radio"
+                  name="gender"
+                  value={gender.name}
+                  ref={gender.reference}
+                />
                 <label>{gender.name}</label>
               </div>
             ))}

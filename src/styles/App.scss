@@ -29,3 +29,11 @@ $MAIN_COLOR: #db0bb9;
   background-color: rgba($color: $MAIN_COLOR, $alpha: 1);
   height: 1px; border: 0;
 }
+
+input {
+  cursor: pointer;
+}
+
+select {
+  cursor: pointer;
+}

@@ -1,31 +1,42 @@
+$MAIN_COLOR: #db0bb9;
+
 .form {
   padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 20px;
   align-items: center;
+  position: relative;
 }
 
 .input__wrap {
   display: flex;
   gap: 10px;
+  font-size: 18px;
+  align-items: center;
 }
 
 .genders__wrap {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 5px;
+  font-size: 18px;
 }
 
 .gender__wrap {
   display: flex;
   gap: 3px;
+  font-size: 20px;
+  font-weight: 500;
 }
 
 .form_text {
   align-self: flex-end;
   font-size: 14px;
+  position: absolute;
+  bottom: 2px;
+  right: 0;
 }
 
 .submit__btn {
@@ -36,4 +47,18 @@
 .error {
   color: red;
   margin-top: -15px;
+}
+
+input {
+  border-radius: 5px;
+  border: 2px solid rgba($color: $MAIN_COLOR, $alpha: 0.5);
+  text-align: center;
+  font-size: 22px;
+}
+
+select {
+  border-radius: 5px;
+  border: 2px solid rgba($color: $MAIN_COLOR, $alpha: 0.5);
+  font-size: 22px;
+  cursor: pointer;
 }

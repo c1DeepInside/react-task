@@ -104,11 +104,17 @@ export class Forms extends Component<Props, State> {
     return (
       <div className="forms">
         <form className="form">
-          {this.state.formFields.map((field) => (
-            <CustomInput field={field} isError={false} key={field.id} />
-          ))}
+          {this.state.formFields.map((field) => {
+            if (field.id < this.state.formFields.length) {
+              return <CustomInput field={field} isError={false} key={field.id} />;
+            }
+          })}
           <CustomSelect reference={this.languageRef} isError={false} />
           <GenderInput genderProps={this.state.genderProps} isError={false} />
+          <CustomInput
+            field={this.state.formFields[this.state.formFields.length - 1]}
+            isError={false}
+          />
           <button className="btn submit__btn" onClick={this.submitForm}>
             Submit
           </button>
