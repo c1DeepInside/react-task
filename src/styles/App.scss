@@ -23,3 +23,9 @@ $MAIN_COLOR: #db0bb9;
     border: 2px solid rgba($color: $MAIN_COLOR, $alpha: 1);
   }
 }
+
+.hr {
+  margin-top: 5px;
+  background-color: rgba($color: $MAIN_COLOR, $alpha: 1);
+  height: 1px; border: 0;
+}

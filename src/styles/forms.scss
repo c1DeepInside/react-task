@@ -5,3 +5,35 @@
   gap: 20px;
   align-items: center;
 }
+
+.input__wrap {
+  display: flex;
+  gap: 10px;
+}
+
+.genders__wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.gender__wrap {
+  display: flex;
+  gap: 3px;
+}
+
+.form_text {
+  align-self: flex-end;
+  font-size: 14px;
+}
+
+.submit__btn {
+  font-size: 22px;
+  padding: 5px 50px;
+}
+
+.error {
+  color: red;
+  margin-top: -15px;
+}

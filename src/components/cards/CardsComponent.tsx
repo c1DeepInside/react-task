@@ -19,7 +19,7 @@ export default class CardsComponent extends Component<Props, { cards: ICard[] }>
     return (
       <div className="cards__wrap">
         <h2 className="cards__text">Cards:</h2>
-        <hr className="cards__hr" />
+        <hr className="hr" />
         <div className="cards__field">
           {this.state.cards.map((card) => (
             <Card key={card.id} card={card} />
