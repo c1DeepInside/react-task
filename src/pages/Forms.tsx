@@ -2,24 +2,21 @@ import React, { Component } from 'react';
 import CustomInput from '../components/forms/CustomInput';
 import CustomSelect from '../components/forms/CustomSelect';
 import GenderInput from '../components/forms/GenderInput';
-import { Field, GenderProps } from '../interfaces/forms';
+import { Field, GenderProps, ValidationFields, ValidationResult } from '../interfaces/forms';
 import '../styles/forms.scss';
-
-enum errorsName {
-  name = 'name',
-  date = 'date',
-  gender = 'gender',
-  agree = 'agree',
-  language = 'language',
-  file = 'file',
-}
+import { validation } from '../utils/validation';
 
 interface Props {
   text?: string;
 }
 
+interface Errors {
+  gender: boolean;
+  language: boolean;
+}
+
 interface State {
-  errors: string[];
+  errors: Errors;
   formFields: Field[];
   genderProps: GenderProps[];
 }
@@ -45,14 +42,18 @@ export class Forms extends Component<Props, State> {
     this.fileRef = React.createRef();
     this.agreeRef = React.createRef();
     this.state = {
-      errors: [],
+      errors: {
+        gender: false,
+        language: false,
+      },
       formFields: [
         {
           id: 1,
           reference: this.nameRef,
           type: 'text',
-          errorText: 'Please enter the nickname',
+          errorText: 'Please enter the nickname (there should be no spaces)',
           description: 'Nickname',
+          isError: false,
         },
         {
           id: 2,
@@ -60,6 +61,7 @@ export class Forms extends Component<Props, State> {
           type: 'date',
           errorText: 'Please enter the correct date of yesterday',
           description: 'What day was yesterday?',
+          isError: false,
         },
         {
           id: 3,
@@ -68,6 +70,7 @@ export class Forms extends Component<Props, State> {
           errorText: 'Please select a picture',
           description: 'Choose a picture for your avatar',
           accept: '.png, .jpg, .jpeg',
+          isError: false,
         },
         {
           id: 4,
@@ -75,6 +78,7 @@ export class Forms extends Component<Props, State> {
           type: 'checkbox',
           errorText: 'To continue, you must agree to data processing',
           description: 'I agree to the processing of personal data',
+          isError: false,
         },
       ],
       genderProps: [
@@ -96,8 +100,18 @@ export class Forms extends Component<Props, State> {
 
   submitForm = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    console.log(this.nameRef.current?.value);
-    console.log(this.dateRef.current?.value);
+    const validationFields: ValidationFields = {
+      name: this.nameRef.current?.value,
+      date: this.dateRef.current?.value,
+      file: this.fileRef.current?.value,
+      language: this.languageRef.current?.value,
+      other: this.otherGenderRef.current?.checked,
+      male: this.maleGenderRef.current?.checked,
+      female: this.femaleGenderRef.current?.checked,
+      agree: this.agreeRef.current?.checked,
+    };
+    const validationResult: ValidationResult = validation(validationFields);
+    console.log(validationResult);
   };
 
   render() {
@@ -106,14 +120,14 @@ export class Forms extends Component<Props, State> {
         <form className="form">
           {this.state.formFields.map((field) => {
             if (field.id < this.state.formFields.length) {
-              return <CustomInput field={field} isError={false} key={field.id} />;
+              return <CustomInput field={field} isError={field.isError} key={field.id} />;
             }
           })}
-          <CustomSelect reference={this.languageRef} isError={false} />
-          <GenderInput genderProps={this.state.genderProps} isError={false} />
+          <CustomSelect reference={this.languageRef} isError={this.state.errors.language} />
+          <GenderInput genderProps={this.state.genderProps} isError={this.state.errors.gender} />
           <CustomInput
             field={this.state.formFields[this.state.formFields.length - 1]}
-            isError={false}
+            isError={this.state.formFields[this.state.formFields.length - 1].isError}
           />
           <button className="btn submit__btn" onClick={this.submitForm}>
             Submit
