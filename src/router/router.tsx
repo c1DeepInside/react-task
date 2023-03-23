@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from '../App';
-import About from '../pages/About';
+import About from '../pages/AboutPage';
 import Cards from '../pages/CardsPage';
 import ErrorPage from '../pages/ErrorPage';
 import FormsPage from '../pages/FormsPage';

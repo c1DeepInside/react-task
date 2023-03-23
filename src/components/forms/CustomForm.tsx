@@ -20,7 +20,6 @@ interface State {
   errors: ValidationResult;
   formFields: Field[];
   genderProps: GenderProps[];
-  successCreate: boolean;
 }
 
 class CustomForm extends Component<Props, State> {
@@ -54,7 +53,6 @@ class CustomForm extends Component<Props, State> {
         language: false,
         agree: false,
       },
-      successCreate: false,
       formFields: [
         {
           id: 1,

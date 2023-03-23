@@ -10,6 +10,7 @@ interface Props {
 
 interface State {
   cards: FormCard[];
+  isShowMessage: boolean;
 }
 
 class FormsPage extends Component<Props, State> {
@@ -17,11 +18,16 @@ class FormsPage extends Component<Props, State> {
     super(props);
     this.state = {
       cards: [],
+      isShowMessage: false,
     };
   }
 
   addCard = (card: FormCard) => {
     this.setState({ cards: [...this.state.cards, card] });
+    this.setState({ isShowMessage: true });
+    setTimeout(() => {
+      this.setState({ isShowMessage: false });
+    }, 1000);
   };
 
   render() {
@@ -34,6 +40,9 @@ class FormsPage extends Component<Props, State> {
             <FormCardComponent key={card.id} card={card} />
           ))}
         </div>
+        <p className={this.state.isShowMessage ? 'success_active success' : 'success'}>
+          The card was created successfully!
+        </p>
       </div>
     );
   }
