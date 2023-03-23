@@ -10,7 +10,6 @@ export interface Field {
   description: string;
   type: string;
   accept?: string;
-  isError: boolean;
 }
 
 export interface ValidationFields {
@@ -31,4 +30,13 @@ export interface ValidationResult {
   agree: boolean;
   language: boolean;
   gender: boolean;
+}
+
+export interface FormCard {
+  id: number;
+  name: string;
+  date: string;
+  file: string;
+  language: string;
+  gender: string;
 }

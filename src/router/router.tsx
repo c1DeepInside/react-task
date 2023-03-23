@@ -3,7 +3,7 @@ import App from '../App';
 import About from '../pages/About';
 import Cards from '../pages/CardsPage';
 import ErrorPage from '../pages/ErrorPage';
-import Forms from '../pages/Forms';
+import FormsPage from '../pages/FormsPage';
 
 export const router = createBrowserRouter([
   {
@@ -21,7 +21,7 @@ export const router = createBrowserRouter([
       },
       {
         path: '/forms',
-        element: <Forms />,
+        element: <FormsPage />,
       },
     ],
   },

@@ -46,7 +46,8 @@ $MAIN_COLOR: #db0bb9;
 
 .error {
   color: red;
-  margin-top: -15px;
+  margin-top: 5px;
+  text-align: center;
 }
 
 input {
@@ -61,4 +62,17 @@ select {
   border: 2px solid rgba($color: $MAIN_COLOR, $alpha: 0.5);
   font-size: 22px;
   cursor: pointer;
+}
+
+.forms_page {
+  display: flex;
+  flex-direction: column;
+}
+
+.form__cards__wrap {
+  display: flex;
+  padding: 20px;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
 }

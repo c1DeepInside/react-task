@@ -1,27 +1,29 @@
 import React, { Component } from 'react';
-import CustomInput from '../components/forms/CustomInput';
-import CustomSelect from '../components/forms/CustomSelect';
-import GenderInput from '../components/forms/GenderInput';
-import { Field, GenderProps, ValidationFields, ValidationResult } from '../interfaces/forms';
-import '../styles/forms.scss';
-import { validation } from '../utils/validation';
+import {
+  Field,
+  FormCard,
+  GenderProps,
+  ValidationFields,
+  ValidationResult,
+} from '../../interfaces/forms';
+import { checkGender } from '../../utils/checkGender';
+import { validation } from '../../utils/validation';
+import CustomInput from './CustomInput';
+import CustomSelect from './CustomSelect';
+import GenderInput from './GenderInput';
 
 interface Props {
-  text?: string;
-}
-
-interface Errors {
-  gender: boolean;
-  language: boolean;
+  addCard: (card: FormCard) => void;
 }
 
 interface State {
-  errors: Errors;
+  errors: ValidationResult;
   formFields: Field[];
   genderProps: GenderProps[];
+  successCreate: boolean;
 }
 
-export class Forms extends Component<Props, State> {
+class CustomForm extends Component<Props, State> {
   private nameRef: React.RefObject<HTMLInputElement>;
   private dateRef: React.RefObject<HTMLInputElement>;
   private languageRef: React.RefObject<HTMLSelectElement>;
@@ -43,9 +45,14 @@ export class Forms extends Component<Props, State> {
     this.agreeRef = React.createRef();
     this.state = {
       errors: {
+        name: false,
+        date: false,
+        file: false,
         gender: false,
         language: false,
+        agree: false,
       },
+      successCreate: false,
       formFields: [
         {
           id: 1,
@@ -53,7 +60,6 @@ export class Forms extends Component<Props, State> {
           type: 'text',
           errorText: 'Please enter the nickname (there should be no spaces)',
           description: 'Nickname',
-          isError: false,
         },
         {
           id: 2,
@@ -61,7 +67,6 @@ export class Forms extends Component<Props, State> {
           type: 'date',
           errorText: 'Please enter the correct date of yesterday',
           description: 'What day was yesterday?',
-          isError: false,
         },
         {
           id: 3,
@@ -70,7 +75,6 @@ export class Forms extends Component<Props, State> {
           errorText: 'Please select a picture',
           description: 'Choose a picture for your avatar',
           accept: '.png, .jpg, .jpeg',
-          isError: false,
         },
         {
           id: 4,
@@ -78,7 +82,6 @@ export class Forms extends Component<Props, State> {
           type: 'checkbox',
           errorText: 'To continue, you must agree to data processing',
           description: 'I agree to the processing of personal data',
-          isError: false,
         },
       ],
       genderProps: [
@@ -111,33 +114,53 @@ export class Forms extends Component<Props, State> {
       agree: this.agreeRef.current?.checked,
     };
     const validationResult: ValidationResult = validation(validationFields);
-    console.log(validationResult);
+    this.setState({
+      errors: validationResult,
+    });
+    if (Object.values(validationResult).every((e: boolean) => !e)) {
+      const file = URL.createObjectURL(this.fileRef.current?.files?.[0] as File);
+      this.props.addCard({
+        id: Date.now(),
+        name: validationFields.name!,
+        date: validationFields.date!,
+        file: file,
+        language: validationFields.language!,
+        gender: checkGender(
+          validationFields.other!,
+          validationFields.male!,
+          validationFields.female!
+        ),
+      });
+    }
   };
 
   render() {
     return (
-      <div className="forms">
-        <form className="form">
-          {this.state.formFields.map((field) => {
-            if (field.id < this.state.formFields.length) {
-              return <CustomInput field={field} isError={field.isError} key={field.id} />;
-            }
-          })}
-          <CustomSelect reference={this.languageRef} isError={this.state.errors.language} />
-          <GenderInput genderProps={this.state.genderProps} isError={this.state.errors.gender} />
-          <CustomInput
-            field={this.state.formFields[this.state.formFields.length - 1]}
-            isError={this.state.formFields[this.state.formFields.length - 1].isError}
-          />
-          <button className="btn submit__btn" onClick={this.submitForm}>
-            Submit
-          </button>
-          <p className="form_text">All fields are required</p>
-        </form>
-        <hr className="hr" />
-      </div>
+      <form className="form">
+        {this.state.formFields.map((field, index) => {
+          if (field.id < this.state.formFields.length) {
+            return (
+              <CustomInput
+                field={field}
+                isError={Object.values(this.state.errors)[index]}
+                key={field.id}
+              />
+            );
+          }
+        })}
+        <CustomSelect reference={this.languageRef} isError={this.state.errors.language} />
+        <GenderInput genderProps={this.state.genderProps} isError={this.state.errors.gender} />
+        <CustomInput
+          field={this.state.formFields[this.state.formFields.length - 1]}
+          isError={Object.values(this.state.errors)[Object.entries(this.state.errors).length - 1]}
+        />
+        <button className="btn submit__btn" onClick={this.submitForm}>
+          Submit
+        </button>
+        <p className="form_text">All fields are required</p>
+      </form>
     );
   }
 }
 
-export default Forms;
+export default CustomForm;

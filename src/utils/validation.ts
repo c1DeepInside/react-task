@@ -5,13 +5,13 @@ export function validation(validationFields: ValidationFields): ValidationResult
     name: nameValidation(validationFields.name!),
     date: dateValidation(validationFields.date!),
     file: fileValidation(validationFields.file!),
-    agree: !validationFields.agree!,
     gender: genderValidation(
       validationFields.other!,
       validationFields.male!,
       validationFields.female!
     ),
     language: languageValidation(validationFields.language!),
+    agree: !validationFields.agree!,
   };
 }
 
