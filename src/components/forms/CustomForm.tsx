@@ -24,6 +24,7 @@ interface State {
 }
 
 class CustomForm extends Component<Props, State> {
+  private formRef: React.RefObject<HTMLFormElement>;
   private nameRef: React.RefObject<HTMLInputElement>;
   private dateRef: React.RefObject<HTMLInputElement>;
   private languageRef: React.RefObject<HTMLSelectElement>;
@@ -35,6 +36,7 @@ class CustomForm extends Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
+    this.formRef = React.createRef();
     this.nameRef = React.createRef();
     this.dateRef = React.createRef();
     this.languageRef = React.createRef();
@@ -131,12 +133,17 @@ class CustomForm extends Component<Props, State> {
           validationFields.female!
         ),
       });
+      this.clearForm();
     }
+  };
+
+  clearForm = () => {
+    this.formRef.current?.reset();
   };
 
   render() {
     return (
-      <form className="form">
+      <form className="form" ref={this.formRef}>
         {this.state.formFields.map((field, index) => {
           if (field.id < this.state.formFields.length) {
             return (

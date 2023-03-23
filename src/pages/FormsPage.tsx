@@ -22,7 +22,6 @@ class FormsPage extends Component<Props, State> {
 
   addCard = (card: FormCard) => {
     this.setState({ cards: [...this.state.cards, card] });
-    console.log(card);
   };
 
   render() {
