@@ -45,11 +45,14 @@ export default class Navbar extends Component<Props, { currentPage: string; page
               }
               to={page.link}
               onClick={() => this.changeCurrentPage(page.name)}
+              data-testid={page.name.replace(/ /g, '').toLowerCase() + '_link'}
             >
               {page.name}
             </NavLink>
           ))}
-          <p className={cl.current__page}>{this.state.currentPage}</p>
+          <p className={cl.current__page} data-testid="page_name">
+            {this.state.currentPage}
+          </p>
         </nav>
       </div>
     );

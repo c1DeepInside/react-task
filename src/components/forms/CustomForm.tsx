@@ -159,7 +159,7 @@ class CustomForm extends Component<Props, State> {
           field={this.state.formFields[this.state.formFields.length - 1]}
           isError={Object.values(this.state.errors)[Object.entries(this.state.errors).length - 1]}
         />
-        <button className="btn submit__btn" onClick={this.submitForm}>
+        <button className="btn submit__btn" onClick={this.submitForm} data-testid="submit__button">
           Submit
         </button>
         <p className="form_text">All fields are required</p>
