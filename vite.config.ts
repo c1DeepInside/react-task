@@ -15,6 +15,8 @@ export default defineConfig({
       all: true,
       skipFull: false,
       reporter: 'text',
+      include: ['**/src/**'],
+      exclude: ['**/interfaces/**', '**/tests/**', 'src/vite-env.d.ts'],
     },
   },
 });

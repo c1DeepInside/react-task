@@ -1,37 +1,26 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { beforeEach, describe, expect, test } from 'vitest';
-import CustomForm from '../components/forms/CustomForm';
+import FormCardComponent from '../components/forms/FromCardComponent/FormCardComponent';
+import { FormCard } from '../interfaces/forms';
+
+const card: FormCard = {
+  id: 1,
+  name: 'kotek',
+  date: '2022-05-15',
+  file: 'https://i.pinimg.com/originals/e3/41/40/e34140dc81a93041f8ae93e6b87b3c6c.jpg',
+  language: 'JS',
+  gender: 'Female',
+};
 
 describe('default test', () => {
   beforeEach(() => {
-    render(
-      <CustomForm
-        addCard={function (): void {
-          throw new Error('Function not implemented.');
-        }}
-      />
-    );
+    render(<FormCardComponent card={card} />);
   });
 
-  test('should show inputs', () => {
-    expect(screen.getAllByText(/nickname/i)).toBeDefined();
-    expect(screen.getAllByText(/What day was yesterday?/i)).toBeDefined();
-    expect(screen.getAllByText(/Choose a picture for your avatar/i)).toBeDefined();
-    expect(screen.getAllByText(/Favorite programming language/i)).toBeDefined();
-    expect(screen.getAllByText(/I agree to the processing of personal data/i)).toBeDefined();
-    expect(screen.getAllByText(/What's your gender?/i)).toBeDefined();
-  });
-
-  test('should show errors', () => {
-    const submit = screen.getByTestId('submit__button') as HTMLButtonElement;
-    if (submit) {
-      fireEvent.click(submit);
-      expect(screen.getAllByText(/Please enter the correct date of yesterday/i)).toBeDefined();
-      expect(screen.getAllByText(/Please select a picture/i)).toBeDefined();
-      expect(screen.getAllByText(/To continue, you must agree to data processing/i)).toBeDefined();
-      expect(screen.getAllByText(/Please choose favorite language/i)).toBeDefined();
-      expect(screen.getAllByText(/Please enter a gender/i)).toBeDefined();
-      expect(screen.getAllByText(/Please enter the nickname/i)).toBeDefined();
-    }
+  test('should render card', () => {
+    expect(screen.getAllByText(/kotek/i)).toBeDefined();
+    expect(screen.getAllByText(/JS/i)).toBeDefined();
+    expect(screen.getAllByText(/2022-05-15/i)).toBeDefined();
+    expect(screen.getAllByText(/Female/i)).toBeDefined();
   });
 });

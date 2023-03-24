@@ -3,6 +3,7 @@ import React from 'react';
 import { RouterProvider } from 'react-router-dom';
 import { beforeEach, describe, expect, test } from 'vitest';
 import { router } from '../router/router';
+import '@testing-library/jest-dom';
 
 describe('default test', () => {
   beforeEach(() => {
@@ -22,15 +23,15 @@ describe('default test', () => {
     if (cards && about && forms && text) {
       fireEvent.click(cards);
 
-      expect(text);
+      expect(text).toHaveTextContent('Cards');
 
       fireEvent.click(about);
 
-      expect(text).toContain('About us');
+      expect(text).toHaveTextContent('About us');
 
       fireEvent.click(forms);
 
-      expect(text).toContain('Forms');
+      expect(text).toHaveTextContent('Forms');
     }
   });
 });
