@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Field } from '../../interfaces/forms';
 
 interface Props {
@@ -6,26 +6,16 @@ interface Props {
   isError: boolean;
 }
 
-export class CustomInput extends Component<Props> {
-  constructor(props: Props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <div>
-        <div className="input__wrap">
-          <label>{this.props.field.description}</label>
-          <input
-            type={this.props.field.type}
-            ref={this.props.field.reference}
-            accept={this.props.field.accept}
-          />
-        </div>
-        {this.props.isError && <p className="error">{this.props.field.errorText}</p>}
+function CustomInput(props: Props) {
+  return (
+    <div>
+      <div className="input__wrap">
+        <label>{props.field.description}</label>
+        <input type={props.field.type} ref={props.field.reference} accept={props.field.accept} />
       </div>
-    );
-  }
+      {props.isError && <p className="error">{props.field.errorText}</p>}
+    </div>
+  );
 }
 
 export default CustomInput;
