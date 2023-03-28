@@ -39,7 +39,7 @@ function CustomForm(props: Props) {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} data-testid="submit__form" className="form">
+    <form onSubmit={handleSubmit(onSubmit)} className="form">
       <div className="input__wrap">
         <label>Nickname</label>
         <input type="text" {...register('name', { required: true, pattern: /^\S*$/ })} />
@@ -114,9 +114,7 @@ function CustomForm(props: Props) {
       </div>
       {errors.agree && <p className="error">To continue, you must agree to data processing</p>}
 
-      <button className="btn submit__btn" data-testid="submit__button">
-        Submit
-      </button>
+      <button className="btn submit__btn">Submit</button>
     </form>
   );
 }
