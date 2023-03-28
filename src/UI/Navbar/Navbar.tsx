@@ -1,60 +1,48 @@
-import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
 import cl from './Navbar.module.scss';
-
-interface Props {
-  text?: string;
-}
 
 interface Pages {
   link: string;
   name: string;
 }
 
-export default class Navbar extends Component<Props, { currentPage: string; pages: Pages[] }> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      currentPage: '',
-      pages: [
-        { name: 'Cards', link: '/' },
-        { name: 'Forms', link: '/forms' },
-        { name: 'About us', link: '/about' },
-      ],
-    };
-  }
+const pages: Pages[] = [
+  { name: 'Cards', link: '/' },
+  { name: 'Forms', link: '/forms' },
+  { name: 'About us', link: '/about' },
+];
 
-  componentDidMount() {
-    const page = this.state.pages.find((page) => page.link === window.location.pathname);
-    this.setState({ currentPage: String(page?.name) });
-  }
+function Navbar() {
+  const location = useLocation();
+  const [currentPage, setCurrentPage] = useState('');
 
-  changeCurrentPage = (value: string) => {
-    this.setState({ currentPage: value });
-  };
+  useEffect(() => {
+    const page = pages.find((page) => page.link === location.pathname);
+    setCurrentPage(page!.name);
+  }, [location]);
 
-  render() {
-    return (
-      <div className={cl.navbar}>
-        <nav className={cl.nav}>
-          {this.state.pages.map((page) => (
-            <NavLink
-              key={page.link}
-              className={({ isActive }) =>
-                isActive ? `${cl.nav__btn} ${cl.active__btn}` : `${cl.nav__btn}`
-              }
-              to={page.link}
-              onClick={() => this.changeCurrentPage(page.name)}
-              data-testid={page.name.replace(/ /g, '').toLowerCase() + '_link'}
-            >
-              {page.name}
-            </NavLink>
-          ))}
-          <p className={cl.current__page} data-testid="page_name">
-            {this.state.currentPage}
-          </p>
-        </nav>
-      </div>
-    );
-  }
+  return (
+    <div className={cl.navbar}>
+      <nav className={cl.nav}>
+        {pages.map((page) => (
+          <NavLink
+            key={page.link}
+            className={({ isActive }) =>
+              isActive ? `${cl.nav__btn} ${cl.active__btn}` : `${cl.nav__btn}`
+            }
+            to={page.link}
+            data-testid={page.name.replace(/ /g, '').toLowerCase() + '_link'}
+          >
+            {page.name}
+          </NavLink>
+        ))}
+        <p className={cl.current__page} data-testid="page_name">
+          {currentPage}
+        </p>
+      </nav>
+    </div>
+  );
 }
+
+export default Navbar;

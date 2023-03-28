@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Navbar from './UI/navbar/Navbar';
 
-export default class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <Navbar />
-        <Outlet />
-      </div>
-    );
-  }
+function App() {
+  return (
+    <div className="App">
+      <Navbar />
+      <Outlet />
+    </div>
+  );
 }
+
+export default App;
