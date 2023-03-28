@@ -8,13 +8,16 @@ function SearchComponent() {
   );
 
   useEffect(() => {
+    searchRef.current = search;
+  }, [search]);
+
+  useEffect(() => {
     return () => {
       localStorage.setItem('searchInput', searchRef.current!);
     };
   }, []);
 
   const changeSearch = (value: string) => {
-    searchRef.current = search;
     setSearch(value);
   };
 
