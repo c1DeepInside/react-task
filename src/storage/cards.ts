@@ -1,5 +1,5 @@
 import { ICard } from './../interfaces/card';
-export const cards: ICard[] = [
+export const cardsForPage: ICard[] = [
   {
     id: 1,
     name: 'Anti-mage',
