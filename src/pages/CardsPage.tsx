@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import CardsComponent from '../components/cards/CardsComponent';
 import SearchComponent from '../components/cards/SearchComponent';
-import '../styles/Cards.scss';
+import '../styles/cards.scss';
 
 export default class About extends Component {
   render() {
