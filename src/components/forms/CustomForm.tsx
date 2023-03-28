@@ -1,171 +1,124 @@
-import React, { Component } from 'react';
-import {
-  Field,
-  FormCard,
-  GenderProps,
-  ValidationFields,
-  ValidationResult,
-} from '../../interfaces/forms';
-import { checkGender } from '../../utils/checkGender';
-import { validation } from '../../utils/validation';
-import CustomInput from './CustomInput';
-import CustomSelect from './CustomSelect';
-import GenderInput from './GenderInput';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { FormCard } from '../../interfaces/forms';
+import { dateValidation } from '../../utils/validation';
 
 interface Props {
   addCard: (card: FormCard) => void;
 }
 
-interface State {
-  errors: ValidationResult;
-  formFields: Field[];
-  genderProps: GenderProps[];
-}
+function CustomForm(props: Props) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+    reset,
+  } = useForm({ mode: 'onSubmit' });
 
-class CustomForm extends Component<Props, State> {
-  private formRef: React.RefObject<HTMLFormElement>;
-  private nameRef: React.RefObject<HTMLInputElement>;
-  private dateRef: React.RefObject<HTMLInputElement>;
-  private languageRef: React.RefObject<HTMLSelectElement>;
-  private maleGenderRef: React.RefObject<HTMLInputElement>;
-  private femaleGenderRef: React.RefObject<HTMLInputElement>;
-  private otherGenderRef: React.RefObject<HTMLInputElement>;
-  private fileRef: React.RefObject<HTMLInputElement>;
-  private agreeRef: React.RefObject<HTMLInputElement>;
+  const name: string = watch('name');
+  const date: Date = watch('date');
+  const file: FileList = watch('file');
+  const language: string = watch('language');
+  const gender: string = watch('gender');
 
-  constructor(props: Props) {
-    super(props);
-    this.formRef = React.createRef();
-    this.nameRef = React.createRef();
-    this.dateRef = React.createRef();
-    this.languageRef = React.createRef();
-    this.maleGenderRef = React.createRef();
-    this.femaleGenderRef = React.createRef();
-    this.otherGenderRef = React.createRef();
-    this.fileRef = React.createRef();
-    this.agreeRef = React.createRef();
-    this.state = {
-      errors: {
-        name: false,
-        date: false,
-        file: false,
-        gender: false,
-        language: false,
-        agree: false,
-      },
-      formFields: [
-        {
-          id: 1,
-          reference: this.nameRef,
-          type: 'text',
-          errorText: 'Please enter the nickname (there should be no spaces)',
-          description: 'Nickname',
-        },
-        {
-          id: 2,
-          reference: this.dateRef,
-          type: 'date',
-          errorText: 'Please enter the correct date of yesterday',
-          description: 'What day was yesterday?',
-        },
-        {
-          id: 3,
-          reference: this.fileRef,
-          type: 'file',
-          errorText: 'Please select a picture',
-          description: 'Choose a picture for your avatar',
-          accept: '.png, .jpg, .jpeg',
-        },
-        {
-          id: 4,
-          reference: this.agreeRef,
-          type: 'checkbox',
-          errorText: 'To continue, you must agree to data processing',
-          description: 'I agree to the processing of personal data',
-        },
-      ],
-      genderProps: [
-        {
-          reference: this.maleGenderRef,
-          name: 'Male',
-        },
-        {
-          reference: this.femaleGenderRef,
-          name: 'Female',
-        },
-        {
-          reference: this.otherGenderRef,
-          name: 'Other',
-        },
-      ],
-    };
-  }
-
-  submitForm = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    const validationFields: ValidationFields = {
-      name: this.nameRef.current?.value,
-      date: this.dateRef.current?.value,
-      file: this.fileRef.current?.value,
-      language: this.languageRef.current?.value,
-      other: this.otherGenderRef.current?.checked,
-      male: this.maleGenderRef.current?.checked,
-      female: this.femaleGenderRef.current?.checked,
-      agree: this.agreeRef.current?.checked,
-    };
-    const validationResult: ValidationResult = validation(validationFields);
-    this.setState({
-      errors: validationResult,
+  const onSubmit = () => {
+    props.addCard({
+      id: Date.now(),
+      name: name,
+      date: date.toString(),
+      file: URL.createObjectURL(file[0]),
+      language: language,
+      gender: gender,
     });
-    if (Object.values(validationResult).every((e: boolean) => !e)) {
-      const file = URL.createObjectURL(this.fileRef.current?.files?.[0] as File);
-      this.props.addCard({
-        id: Date.now(),
-        name: validationFields.name!,
-        date: validationFields.date!,
-        file: file,
-        language: validationFields.language!,
-        gender: checkGender(
-          validationFields.other!,
-          validationFields.male!,
-          validationFields.female!
-        ),
-      });
-      this.clearForm();
-    }
+    reset();
   };
 
-  clearForm = () => {
-    this.formRef.current?.reset();
+  const dateValid = () => {
+    return dateValidation(date.toString());
   };
 
-  render() {
-    return (
-      <form className="form" ref={this.formRef}>
-        {this.state.formFields.map((field, index) => {
-          if (field.id < this.state.formFields.length) {
-            return (
-              <CustomInput
-                field={field}
-                isError={Object.values(this.state.errors)[index]}
-                key={field.id}
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} data-testid="submit__form" className="form">
+      <div className="input__wrap">
+        <label>Nickname</label>
+        <input type="text" {...register('name', { required: true, pattern: /^\S*$/ })} />
+      </div>
+      {errors.name && (
+        <p className="error">Please enter the nickname (there should be no spaces)</p>
+      )}
+
+      <div className="input__wrap">
+        <label>What day was yesterday?</label>
+        <input type="date" {...register('date', { required: true, validate: { dateValid } })} />
+      </div>
+      {errors.date && <p className="error">Please enter the correct date of yesterday</p>}
+
+      <div className="input__wrap">
+        <label>Choose a picture for your avatar</label>
+        <input accept=".png, .jpg, .jpeg" type="file" {...register('file', { required: true })} />
+      </div>
+      {errors.file && <p className="error">Please select a picture</p>}
+
+      <div>
+        <div className="input__wrap">
+          <label>Favorite programming language</label>
+          <select defaultValue="" {...register('language', { required: true })}>
+            <option disabled value=""></option>
+            <option value="JS">JS</option>
+            <option value="Pascal">Pascal</option>
+          </select>
+        </div>
+      </div>
+      {errors.language && <p className="error">Please choose favorite language</p>}
+
+      <div>
+        <div className="genders__wrap">
+          <label>What&#39;s your gender?</label>
+          <div className="input__wrap">
+            <div className="gender__wrap">
+              <input
+                className="input"
+                type="radio"
+                value="male"
+                {...register('gender', { required: true })}
               />
-            );
-          }
-        })}
-        <CustomSelect reference={this.languageRef} isError={this.state.errors.language} />
-        <GenderInput genderProps={this.state.genderProps} isError={this.state.errors.gender} />
-        <CustomInput
-          field={this.state.formFields[this.state.formFields.length - 1]}
-          isError={Object.values(this.state.errors)[Object.entries(this.state.errors).length - 1]}
-        />
-        <button className="btn submit__btn" onClick={this.submitForm} data-testid="submit__button">
-          Submit
-        </button>
-        <p className="form_text">All fields are required</p>
-      </form>
-    );
-  }
+              <label>Male</label>
+            </div>
+            <div className="gender__wrap">
+              <input
+                className="input"
+                type="radio"
+                value="female"
+                {...register('gender', { required: true })}
+              />
+              <label>Female</label>
+            </div>
+            <div className="gender__wrap">
+              <input
+                className="input"
+                type="radio"
+                value="other"
+                {...register('gender', { required: true })}
+              />
+              <label>Other</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      {errors.gender && <p className="error">Please enter a gender</p>}
+
+      <div className="input__wrap">
+        <label>I agree to the processing of personal data</label>
+        <input type="checkbox" {...register('agree', { required: true })} />
+      </div>
+      {errors.agree && <p className="error">To continue, you must agree to data processing</p>}
+
+      <button className="btn submit__btn" data-testid="submit__button">
+        Submit
+      </button>
+    </form>
+  );
 }
 
 export default CustomForm;
