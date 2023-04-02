@@ -17,8 +17,8 @@ function SearchComponent() {
     };
   }, []);
 
-  const changeSearch = (value: string) => {
-    setSearch(value);
+  const changeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
   };
 
   return (
@@ -28,7 +28,7 @@ function SearchComponent() {
         type="text"
         placeholder="Search..."
         value={search}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => changeSearch(e.target?.value)}
+        onChange={changeSearch}
         data-testid="search__input"
       />
       <button className="search__btn btn">Search</button>
