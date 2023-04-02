@@ -17,8 +17,8 @@ export default class SearchComponent extends Component<Props, { search: string }
     localStorage.setItem('searchInput', this.state.search);
   }
 
-  changeSearch = (value: string) => {
-    this.setState({ search: value });
+  changeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ search: e.target.value });
   };
 
   render() {
@@ -29,7 +29,7 @@ export default class SearchComponent extends Component<Props, { search: string }
           type="text"
           placeholder="Search..."
           value={this.state.search}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.changeSearch(e.target?.value)}
+          onChange={this.changeSearch}
           data-testid="search__input"
         />
         <button className="search__btn btn">Search</button>

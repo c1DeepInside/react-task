@@ -29,7 +29,7 @@ export default class Navbar extends Component<Props, { currentPage: string; page
     this.setState({ currentPage: String(page?.name) });
   }
 
-  changeCurrentPage = (value: string) => {
+  changeCurrentPage = (value: string) => () => {
     this.setState({ currentPage: value });
   };
 
@@ -44,7 +44,7 @@ export default class Navbar extends Component<Props, { currentPage: string; page
                 isActive ? `${cl.nav__btn} ${cl.active__btn}` : `${cl.nav__btn}`
               }
               to={page.link}
-              onClick={() => this.changeCurrentPage(page.name)}
+              onClick={this.changeCurrentPage(page.name)}
               data-testid={page.name.replace(/ /g, '').toLowerCase() + '_link'}
             >
               {page.name}
