@@ -31,6 +31,10 @@ $MAIN_COLOR: #db0bb9;
   font-weight: 500;
 }
 
+.gender__name {
+  text-transform: capitalize;
+}
+
 .form_text {
   align-self: flex-end;
   font-size: 14px;

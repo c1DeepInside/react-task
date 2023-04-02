@@ -3,11 +3,11 @@ import { useForm } from 'react-hook-form';
 import { FormCard } from '../../interfaces/forms';
 import { dateValidation } from '../../utils/validation';
 
-interface Props {
+interface IProps {
   addCard: (card: FormCard) => void;
 }
 
-function CustomForm(props: Props) {
+function CustomForm(props: IProps) {
   const {
     register,
     handleSubmit,
@@ -16,6 +16,7 @@ function CustomForm(props: Props) {
     reset,
   } = useForm({ mode: 'onSubmit' });
 
+  const genders = ['male', 'female', 'other'];
   const name: string = watch('name');
   const date: Date = watch('date');
   const file: FileList = watch('file');
@@ -76,33 +77,17 @@ function CustomForm(props: Props) {
         <div className="genders__wrap">
           <label>What&#39;s your gender?</label>
           <div className="input__wrap">
-            <div className="gender__wrap">
-              <input
-                className="input"
-                type="radio"
-                value="male"
-                {...register('gender', { required: true })}
-              />
-              <label>Male</label>
-            </div>
-            <div className="gender__wrap">
-              <input
-                className="input"
-                type="radio"
-                value="female"
-                {...register('gender', { required: true })}
-              />
-              <label>Female</label>
-            </div>
-            <div className="gender__wrap">
-              <input
-                className="input"
-                type="radio"
-                value="other"
-                {...register('gender', { required: true })}
-              />
-              <label>Other</label>
-            </div>
+            {genders.map((genderName) => (
+              <div key={genderName} className="gender__wrap">
+                <input
+                  className="input"
+                  type="radio"
+                  value={genderName}
+                  {...register('gender', { required: true })}
+                />
+                <label className="gender__name">{genderName}</label>
+              </div>
+            ))}
           </div>
         </div>
       </div>
