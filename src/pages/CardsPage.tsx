@@ -1,7 +1,7 @@
 import React from 'react';
 import CardsComponent from '../components/cards/CardsComponent';
 import SearchComponent from '../components/cards/SearchComponent';
-import '../styles/cards.scss';
+import '../styles/Cards.scss';
 
 function CardsPage() {
   return (
