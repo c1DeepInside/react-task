@@ -1,0 +1,21 @@
+$MAIN_COLOR: #db0bb9;
+
+
+.card {
+  border-radius: 5px;
+  border: 2px solid rgba($color: $MAIN_COLOR, $alpha: 0.5);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 5px;
+  width: 270px;
+  padding: 10px;
+}
+
+.img {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  height: 220px;
+  width: 220px;
+  object-fit: contain;
+}
