@@ -1,9 +1,11 @@
+import '@testing-library/jest-dom';
+
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import { RouterProvider } from 'react-router-dom';
 import { beforeEach, describe, expect, test } from 'vitest';
+
 import { router } from '../router/router';
-import '@testing-library/jest-dom';
 
 describe('default test', () => {
   beforeEach(() => {

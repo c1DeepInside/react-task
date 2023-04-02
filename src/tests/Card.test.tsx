@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, test } from 'vitest';
+
 import Card from '../components/cards/Card';
 import { ICard } from '../interfaces/card';
 

@@ -1,5 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
 import '../../styles/search.scss';
+
+import React, { useEffect, useRef, useState } from 'react';
 
 function SearchComponent() {
   const searchRef = useRef<string>();

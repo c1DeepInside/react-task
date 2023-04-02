@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
+
 import cl from './Navbar.module.scss';
 
 interface Pages {

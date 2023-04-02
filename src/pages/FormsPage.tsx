@@ -1,8 +1,10 @@
+import '../styles/forms.scss';
+
 import React, { useState } from 'react';
+
 import CustomForm from '../components/forms/CustomForm';
 import FormCardComponent from '../components/forms/FromCardComponent/FormCardComponent';
 import { FormCard } from '../interfaces/forms';
-import '../styles/forms.scss';
 
 function FormsPage() {
   const [cards, setCards] = useState<FormCard[]>([]);
