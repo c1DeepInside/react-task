@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { GenderProps } from '../../interfaces/forms';
 
-interface Props {
+type Props = {
   genderProps: GenderProps[];
   isError: boolean;
-}
+};
 
 export class GenderInput extends Component<Props> {
   constructor(props: Props) {

@@ -3,9 +3,9 @@ import { ICard } from '../../interfaces/card';
 import { cards } from '../../storage/cards';
 import Card from './Card';
 
-interface Props {
+type Props = {
   text?: string;
-}
+};
 
 export default class CardsComponent extends Component<Props, { cards: ICard[] }> {
   constructor(props: Props) {

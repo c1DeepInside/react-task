@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import '../../styles/search.scss';
 
-interface Props {
+type Props = {
   text?: string;
-}
+};
 
 export default class SearchComponent extends Component<Props, { search: string }> {
   constructor(props: Props) {

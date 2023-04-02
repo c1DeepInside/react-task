@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
   Field,
-  FormCard,
+  IFormCard,
   GenderProps,
   ValidationFields,
   ValidationResult,
@@ -13,7 +13,7 @@ import CustomSelect from './CustomSelect';
 import GenderInput from './GenderInput';
 
 interface Props {
-  addCard: (card: FormCard) => void;
+  addCard: (card: IFormCard) => void;
 }
 
 interface State {

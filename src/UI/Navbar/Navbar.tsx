@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import cl from './Navbar.module.scss';
 
-interface Props {
+type Props = {
   text?: string;
-}
+};
 
-interface Pages {
+type Pages = {
   link: string;
   name: string;
-}
+};
 
 export default class Navbar extends Component<Props, { currentPage: string; pages: Pages[] }> {
   constructor(props: Props) {

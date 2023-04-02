@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import CustomForm from '../components/forms/CustomForm';
 import FormCardComponent from '../components/forms/FromCardComponent/FormCardComponent';
-import { FormCard } from '../interfaces/forms';
+import { IFormCard } from '../interfaces/forms';
 import '../styles/forms.scss';
 
-interface Props {
+type Props = {
   text?: string;
-}
+};
 
-interface State {
-  cards: FormCard[];
+type State = {
+  cards: IFormCard[];
   isShowMessage: boolean;
-}
+};
 
 class FormsPage extends Component<Props, State> {
   constructor(props: Props) {
@@ -22,7 +22,7 @@ class FormsPage extends Component<Props, State> {
     };
   }
 
-  addCard = (card: FormCard) => {
+  addCard = (card: IFormCard) => {
     this.setState({ cards: [...this.state.cards, card] });
     this.setState({ isShowMessage: true });
     setTimeout(() => {

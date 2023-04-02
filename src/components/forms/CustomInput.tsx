@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Field } from '../../interfaces/forms';
 
-interface Props {
+type Props = {
   field: Field;
   isError: boolean;
-}
+};
 
 export class CustomInput extends Component<Props> {
   constructor(props: Props) {

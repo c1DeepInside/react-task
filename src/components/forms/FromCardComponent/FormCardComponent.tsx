@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { FormCard } from '../../../interfaces/forms';
+import { IFormCard } from '../../../interfaces/forms';
 import cl from './FormCardComponent.module.scss';
 
-interface Props {
-  card: FormCard;
-}
+type Props = {
+  card: IFormCard;
+};
 
 class FormCardComponent extends Component<Props> {
   constructor(props: Props) {

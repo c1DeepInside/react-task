@@ -1,9 +1,9 @@
 import { Component } from 'react';
 import { ICard } from '../../interfaces/card';
 
-interface Props {
+type Props = {
   card: ICard;
-}
+};
 
 export default class Card extends Component<Props, { card: ICard }> {
   constructor(props: Props) {

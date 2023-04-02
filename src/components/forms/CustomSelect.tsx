@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-interface Props {
+type Props = {
   reference: React.RefObject<HTMLSelectElement>;
   isError: boolean;
-}
+};
 
 export class CustomSelect extends Component<Props> {
   constructor(props: Props) {
