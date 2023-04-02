@@ -1,39 +1,39 @@
-import React, { Component } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import '../../styles/search.scss';
 
-interface Props {
-  text?: string;
-}
+function SearchComponent() {
+  const searchRef = useRef<string>();
+  const [search, setSearch] = useState(
+    !!localStorage.getItem('searchInput') ? localStorage.getItem('searchInput')! : ''
+  );
 
-export default class SearchComponent extends Component<Props, { search: string }> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      search: !!localStorage.getItem('searchInput') ? localStorage.getItem('searchInput')! : '',
+  useEffect(() => {
+    searchRef.current = search;
+  }, [search]);
+
+  useEffect(() => {
+    return () => {
+      localStorage.setItem('searchInput', searchRef.current!);
     };
-  }
+  }, []);
 
-  componentWillUnmount(): void {
-    localStorage.setItem('searchInput', this.state.search);
-  }
-
-  changeSearch = (value: string) => {
-    this.setState({ search: value });
+  const changeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
   };
 
-  render() {
-    return (
-      <div className="search__wrap">
-        <input
-          className="search"
-          type="text"
-          placeholder="Search..."
-          value={this.state.search}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.changeSearch(e.target?.value)}
-          data-testid="search__input"
-        />
-        <button className="search__btn btn">Search</button>
-      </div>
-    );
-  }
+  return (
+    <div className="search__wrap">
+      <input
+        className="search"
+        type="text"
+        placeholder="Search..."
+        value={search}
+        onChange={changeSearch}
+        data-testid="search__input"
+      />
+      <button className="search__btn btn">Search</button>
+    </div>
+  );
 }
+
+export default SearchComponent;

@@ -1,31 +1,22 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { ICard } from '../../interfaces/card';
-import { cards } from '../../storage/cards';
+import { cardsForPage } from '../../storage/cards';
 import Card from './Card';
 
-interface Props {
-  text?: string;
-}
+function CardsComponent() {
+  const [cards] = useState<ICard[]>(cardsForPage);
 
-export default class CardsComponent extends Component<Props, { cards: ICard[] }> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      cards: cards,
-    };
-  }
-
-  render() {
-    return (
-      <div className="cards__wrap">
-        <h2 className="cards__text">Cards:</h2>
-        <hr className="hr" />
-        <div className="cards__field">
-          {this.state.cards.map((card) => (
-            <Card key={card.id} card={card} />
-          ))}
-        </div>
+  return (
+    <div className="cards__wrap">
+      <h2 className="cards__text">Cards:</h2>
+      <hr className="hr" />
+      <div className="cards__field">
+        {cards.map((card) => (
+          <Card key={card.id} card={card} />
+        ))}
       </div>
-    );
-  }
+    </div>
+  );
 }
+
+export default CardsComponent;

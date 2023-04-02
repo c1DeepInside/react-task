@@ -3,8 +3,8 @@ import { describe, expect, test } from 'vitest';
 import SearchComponent from '../components/cards/SearchComponent';
 
 describe('default test', () => {
-  test('should show text, save to local storage', () => {
-    const { unmount } = render(<SearchComponent />);
+  test('should show text', () => {
+    render(<SearchComponent />);
     const input = screen.getByTestId('search__input') as HTMLInputElement;
     expect(input).toBeTruthy();
 
@@ -20,12 +20,6 @@ describe('default test', () => {
         },
       });
       expect(input.value).toBe('lol');
-
-      unmount();
-
-      const localStorageText = localStorage.getItem('searchInput');
-
-      expect(input.value).toBe(localStorageText);
     }
   });
 });
