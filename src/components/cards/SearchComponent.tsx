@@ -19,6 +19,7 @@ function SearchComponent({ startSearch }: Props) {
       : '';
     setSearch(localStorageText);
     startSearch(localStorageText);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const submitSearch = (e: FormEvent<HTMLFormElement>) => {
