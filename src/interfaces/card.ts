@@ -12,7 +12,7 @@ export interface IGameList {
 export interface IGame {
   id: number;
   name: string;
-  description: string;
+  description_raw: string;
   metacritic: number;
   released: string;
   background_image: string;

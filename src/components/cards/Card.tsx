@@ -3,15 +3,16 @@ import React from 'react';
 import { IGameList } from '../../interfaces/card';
 
 type Props = {
-  card: IGameList;
+  game: IGameList;
+  onClick: (id: number) => () => void;
 };
 
-function Card({ card }: Props) {
+function Card({ game, onClick }: Props) {
   return (
     <>
-      <div className="card__wrap">
-        <img className="card__image" src={card.background_image} alt="photo" />
-        <p className="card__name">{card.name}</p>
+      <div className="card__wrap" onClick={onClick(game.id)}>
+        <img className="card__image" src={game.background_image} alt="photo" />
+        <p className="card__name">{game.name}</p>
       </div>
     </>
   );

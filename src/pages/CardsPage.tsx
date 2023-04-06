@@ -21,7 +21,7 @@ function CardsPage() {
   return (
     <div className="cards">
       <SearchComponent startSearch={startSearch} />
-      <CardsComponent games={games} isGameLoading={isGamesLoading} />
+      <CardsComponent games={games} isGamesLoading={isGamesLoading} />
     </div>
   );
 }
