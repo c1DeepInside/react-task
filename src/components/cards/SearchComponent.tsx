@@ -29,7 +29,7 @@ function SearchComponent({ startSearch }: Props) {
   };
 
   return (
-    <form onSubmit={submitSearch} className="search__wrap">
+    <form onSubmit={submitSearch} className="search__wrap" data-testid="search__form">
       <input
         className="search"
         type="text"

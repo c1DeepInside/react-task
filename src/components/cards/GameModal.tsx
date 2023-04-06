@@ -12,14 +12,14 @@ type Props = {
 const GameModal = ({ isShowLoader, closeModal, game }: Props) => {
   return (
     <>
-      <div className="modal__shadow" onClick={closeModal}></div>
+      <div className="modal__shadow" onClick={closeModal} data-testid="close__modal"></div>
       <div className="modal__wrap">
         <div className="modal">
           <div className="modal__close" onClick={closeModal}>
             ✕
           </div>
           {isShowLoader ? (
-            <div className="modal__loader__wrap">
+            <div className="modal__loader__wrap" data-testid="modal__loader">
               <Loader />
             </div>
           ) : game ? (
@@ -27,7 +27,7 @@ const GameModal = ({ isShowLoader, closeModal, game }: Props) => {
               <img className="game__img" src={game.background_image} alt="game__img" />
               <p className="game__name">{game.name}</p>
               <p className="game__description">{game.description_raw}</p>
-              <p className="game__metascore">
+              <p className="game__metascore" data-testid="meta__modal">
                 Metascore: {game.metacritic ? game.metacritic : 'no info'}
               </p>
               <p className="game__date">Released: {game.released ? game.released : 'no info'}</p>

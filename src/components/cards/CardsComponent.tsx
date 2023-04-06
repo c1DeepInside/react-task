@@ -40,7 +40,7 @@ function CardsComponent({ games, isGamesLoading }: Props) {
         ) : !games.length ? (
           <p className="cards__empty">Games not found</p>
         ) : (
-          games!.map((game) => <Card key={game.id} game={game} onClick={showGame} />)
+          games.map((game) => <Card key={game.id} game={game} onClick={showGame} />)
         )}
       </div>
       {isShowModal && (
