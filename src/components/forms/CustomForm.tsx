@@ -8,6 +8,8 @@ interface IProps {
   addCard: (card: FormCard) => void;
 }
 
+const genders = ['male', 'female', 'other'];
+
 function CustomForm(props: IProps) {
   const {
     register,
@@ -17,7 +19,6 @@ function CustomForm(props: IProps) {
     reset,
   } = useForm({ mode: 'onSubmit' });
 
-  const genders = ['male', 'female', 'other'];
   const name: string = watch('name');
   const date: Date = watch('date');
   const file: FileList = watch('file');
