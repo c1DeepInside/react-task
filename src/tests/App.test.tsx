@@ -2,17 +2,19 @@ import '@testing-library/jest-dom';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
+import { Provider } from 'react-redux';
 import { RouterProvider } from 'react-router-dom';
 import { beforeEach, describe, expect, test } from 'vitest';
 
 import { router } from '../router/router';
+import { store } from '../store/store';
 
 describe('default test', () => {
   beforeEach(() => {
     render(
-      <React.StrictMode>
+      <Provider store={store}>
         <RouterProvider router={router} />
-      </React.StrictMode>
+      </Provider>
     );
   });
 
