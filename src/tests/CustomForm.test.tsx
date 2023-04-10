@@ -5,8 +5,15 @@ import { beforeEach, describe, expect, test } from 'vitest';
 
 import { router } from '../router/router';
 import { store } from '../store/store';
+import { server } from './mocks/server';
 
 describe('default test', () => {
+  beforeAll(() => server.listen());
+
+  afterAll(() => server.close());
+
+  afterEach(() => server.resetHandlers());
+
   beforeEach(() => {
     render(
       <Provider store={store}>

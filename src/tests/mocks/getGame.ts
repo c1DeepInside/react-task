@@ -1,9 +1,7 @@
 import { rest } from 'msw';
 
-const key = '90a7c29c997c49589b8db727a87a7270';
-
-const urlGame = `https://api.rawg.io/api/games/1?key=${key}`;
-const urlGames = `https://api.rawg.io/api/games?key=${key}&page=1&page_size=25&search=`;
+const urlGame = `https://api.rawg.io/api/games/1`;
+const urlGames = `https://api.rawg.io/api/games`;
 
 export const gameHandlers = [
   rest.get(urlGame, (req, res, ctx) => {
