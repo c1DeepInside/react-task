@@ -1,27 +1,25 @@
 import React, { useState } from 'react';
 
-import { getGame } from '../../API/getGames';
-import { IGame, IGameList } from '../../interfaces/card';
+import { useGetGameQuery, useGetGamesQuery } from '../../API/gamesAPI';
+import { useAppSelector } from '../../hooks/redux';
 import Loader from '../../UI/Loader/Loader';
 import Card from './Card';
 import GameModal from './GameModal';
 
-type Props = {
-  games: IGameList[];
-  isGamesLoading: boolean;
-};
-
-function CardsComponent({ games, isGamesLoading }: Props) {
+function CardsComponent() {
   const [isShowModal, setIsShowModal] = useState(false);
-  const [isModalLoader, setIsModalLoader] = useState(false);
-  const [currentGame, setCurrentGame] = useState<IGame>();
+  const [currentId, setCurrentId] = useState(1);
+
+  const searchStorage = useAppSelector((state) => state.search.search);
+  const { data: games, isFetching: isGamesLoading } = useGetGamesQuery({
+    search: searchStorage,
+    page_size: 25,
+  });
+  const { data: game, isFetching: isGameLoading } = useGetGameQuery(currentId);
 
   const showGame = (id: number) => async () => {
-    setIsModalLoader(true);
+    setCurrentId(id);
     setIsShowModal(true);
-    const game = await getGame(id);
-    setCurrentGame(game);
-    setIsModalLoader(false);
   };
 
   const closeModal = () => {
@@ -37,14 +35,14 @@ function CardsComponent({ games, isGamesLoading }: Props) {
           <div className="loader__wrap">
             <Loader />
           </div>
-        ) : !games.length ? (
+        ) : !games?.results.length ? (
           <p className="cards__empty">Games not found</p>
         ) : (
-          games.map((game) => <Card key={game.id} game={game} onClick={showGame} />)
+          games.results.map((game) => <Card key={game.id} game={game} onClick={showGame} />)
         )}
       </div>
       {isShowModal && (
-        <GameModal isShowLoader={isModalLoader} closeModal={closeModal} game={currentGame} />
+        <GameModal isShowLoader={isGameLoading} closeModal={closeModal} game={game} />
       )}
     </div>
   );
