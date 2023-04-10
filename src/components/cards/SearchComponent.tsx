@@ -2,29 +2,30 @@ import '../../styles/search.scss';
 
 import React, { FormEvent, useEffect, useState } from 'react';
 
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { setStorageSearch } from '../../store/searchSlice';
+
 type Props = {
   startSearch: (search: string) => void;
 };
 
 function SearchComponent({ startSearch }: Props) {
-  const [search, setSearch] = useState('');
+  const searchStorage = useAppSelector((state) => state.search.search);
+  const [search, setSearch] = useState(searchStorage);
+  const dispatch = useAppDispatch();
 
   const changeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
 
   useEffect(() => {
-    const localStorageText = !!localStorage.getItem('searchInput')
-      ? localStorage.getItem('searchInput')!
-      : '';
-    setSearch(localStorageText);
-    startSearch(localStorageText);
+    startSearch(search);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const submitSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    localStorage.setItem('searchInput', search);
+    dispatch(setStorageSearch(search));
     startSearch(search);
   };
 

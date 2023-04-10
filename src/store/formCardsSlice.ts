@@ -13,7 +13,7 @@ const initialState: formCardsState = {
   showMessage: false,
 };
 
-export const formCardsSlice = createSlice({
+const formCardsSlice = createSlice({
   name: 'formCards',
   initialState,
   reducers: {

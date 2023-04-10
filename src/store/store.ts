@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import formCardsSlice from './formCardsSlice';
+import searchSlice from './searchSlice';
 
 export const store = configureStore({
   reducer: {
     formCards: formCardsSlice,
+    search: searchSlice,
   },
 });
 
