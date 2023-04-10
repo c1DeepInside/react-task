@@ -1,23 +1,20 @@
 import React from 'react';
 
-import { ICard } from '../../interfaces/card';
+import { IGameList } from '../../interfaces/card';
 
-interface Props {
-  card: ICard;
-}
+type Props = {
+  game: IGameList;
+  onClick: (id: number) => () => void;
+};
 
-function Card({ card }: Props) {
+function Card({ game, onClick }: Props) {
   return (
-    <div className="card__wrap">
-      <img className="card__image" src={card.image} alt="photo" />
-      <div className="card__info">
-        <p className="card__name">
-          {card.id}. {card.name}
-        </p>
-        <p className="card__description">{card.description}</p>
-        <p className="card__likes">❤ {card.likes}</p>
+    <>
+      <div className="card__wrap" onClick={onClick(game.id)} data-testid={`game_${game.id}`}>
+        <img className="card__image" src={game.background_image} alt="photo" />
+        <p className="card__name">{game.name}</p>
       </div>
-    </div>
+    </>
   );
 }
 
