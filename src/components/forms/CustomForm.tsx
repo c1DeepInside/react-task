@@ -1,14 +1,11 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
-import { FormCard } from '../../interfaces/forms';
+import { useAppDispatch } from '../../hooks/redux';
+import { addCard, setShowMessage } from '../../store/formCardsSlice';
 import { dateValidation } from '../../utils/validation';
 
-interface IProps {
-  addCard: (card: FormCard) => void;
-}
-
-function CustomForm(props: IProps) {
+function CustomForm() {
   const {
     register,
     handleSubmit,
@@ -16,6 +13,8 @@ function CustomForm(props: IProps) {
     watch,
     reset,
   } = useForm({ mode: 'onSubmit' });
+
+  const dispatch = useAppDispatch();
 
   const genders = ['male', 'female', 'other'];
   const name: string = watch('name');
@@ -25,15 +24,21 @@ function CustomForm(props: IProps) {
   const gender: string = watch('gender');
 
   const onSubmit = () => {
-    props.addCard({
-      id: Date.now(),
-      name: name,
-      date: date.toString(),
-      file: URL.createObjectURL(file[0]),
-      language: language,
-      gender: gender,
-    });
+    dispatch(
+      addCard({
+        id: Date.now(),
+        name: name,
+        date: date.toString(),
+        file: URL.createObjectURL(file[0]),
+        language: language,
+        gender: gender,
+      })
+    );
+    dispatch(setShowMessage(true));
     reset();
+    setTimeout(() => {
+      dispatch(setShowMessage(false));
+    }, 1000);
   };
 
   const dateValid = () => {
