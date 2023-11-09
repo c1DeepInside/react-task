@@ -1,0 +1,176 @@
+$MAIN_COLOR: #db0bb9;
+
+.cards {
+  width: 100%;
+  padding: 20px;
+  color: $MAIN_COLOR;
+}
+
+.cards__wrap {
+  margin-top: 20px;
+}
+
+.cards__field {
+  margin-top: 20px;
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.cards__empty {
+  font-size: 20px;
+  margin: auto;
+}
+
+.card {
+  &__wrap {
+    border-radius: 5px;
+    width: 310px;
+    height: 172px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    cursor: pointer;
+    transition: 0.5s;
+    position: relative;
+    z-index: 1;
+  }
+
+  &__image {
+    width: 310px;
+    height: 172px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+
+  &__name{
+    font-weight: 600;
+    position: absolute;
+    top: 172px;
+    z-index: 3;
+    transition: 0.5s;
+    margin-left: 10px;
+    font-size: 26px;
+    color: white;
+    text-shadow: 1px 1px 2px black, 0 0 1em $MAIN_COLOR, 0 0 0.2em $MAIN_COLOR;
+  }
+
+  &__wrap:hover {
+    transform: scale(1.1);
+    z-index: 2;
+  }
+
+  &__wrap:hover &__name {
+    transform: translateY(-100%);
+  }
+}
+
+.loader__wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+}
+
+.modal {
+  &__wrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    pointer-events: none;
+  }
+
+  &__shadow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba($color: #000000, $alpha: 0.8);
+    z-index: 5;
+    cursor: pointer;
+  }
+
+  &__close {
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    font-size: 40px;
+    cursor: pointer;
+    transition: 0.5s;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  border: 2px solid rgba($color: $MAIN_COLOR, $alpha: 0.5);
+  border-radius: 5px;
+  background-color: white;
+  padding: 20px;
+  width: 700px;
+  min-height: 500px;
+  cursor: default;
+  pointer-events: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+
+  &__loader__wrap {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.game {
+  &__wrap {
+    flex-direction: column;
+    display: flex;
+    width: 100%;
+    gap: 5px;
+  }
+
+  &__img {
+    width: 310px;
+    height: 172px;
+    object-fit: cover;
+    border-radius: 10px;
+    align-self: center;
+  }
+
+  &__name {
+    font-size: 30px;
+    font-weight: 500;
+  }
+
+  &__description {
+    width: 100%;
+    height: 200px;
+    overflow: auto;
+  }
+
+  &__description::-webkit-scrollbar {
+    width: 3px;
+  }
+  &__description::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: rgba($color: $MAIN_COLOR, $alpha: 0.5);
+  }
+
+
+  &__metascore,
+  &__date {
+    align-self: flex-end;
+  }
+}

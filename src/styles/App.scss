@@ -1,0 +1,39 @@
+$MAIN_COLOR: #db0bb9;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.App {
+  font-family: 'Montserrat', sans-serif;
+  margin: auto;
+  max-width: 1000px;
+}
+
+.btn {
+  cursor: pointer;
+  color: $MAIN_COLOR;
+  border-radius: 5px;
+  border: 2px solid rgba($color: $MAIN_COLOR, $alpha: 0.5);
+  background: transparent;
+
+  &:hover {
+    border: 2px solid rgba($color: $MAIN_COLOR, $alpha: 1);
+  }
+}
+
+.hr {
+  margin-top: 5px;
+  background-color: rgba($color: $MAIN_COLOR, $alpha: 1);
+  height: 1px; border: 0;
+}
+
+input {
+  cursor: pointer;
+}
+
+select {
+  cursor: pointer;
+}
